@@ -88,12 +88,12 @@ function Home() {
                 <div
                   className="absolute inset-x-0 top-0 h-24 opacity-70"
                   style={{
-                    background: `radial-gradient(circle at top, ${character.aura}, transparent 72%)`,
+                    background: `radial-gradient(circle at top, ${character.glow ?? 'rgba(106, 230, 255, 0.28)'}, transparent 72%)`,
                   }}
                 />
                 <div className="relative flex items-center gap-4">
                   <div
-                    className={`h-20 w-14 rounded-full bg-gradient-to-b ${character.accent}`}
+                    className={`h-20 w-14 rounded-full bg-gradient-to-b ${character.portraitClass ?? 'from-cyan-400 via-sky-300 to-white'}`}
                   />
                   <div>
                     <p className="text-xs uppercase tracking-[0.35em] text-slate-400">

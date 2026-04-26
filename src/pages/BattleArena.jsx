@@ -5,10 +5,14 @@ import ArenaEffects from '../components/ArenaEffects';
 import BattleLog from '../components/BattleLog';
 import CharacterCard from '../components/CharacterCard';
 import HealthBar from '../components/HealthBar';
-import { characters, getCharacterById } from '../data/characters';
+import { characters } from '../data/characters';
 
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const arenaBackground = `${import.meta.env.BASE_URL}arena-bg.svg`;
+const getCharacterById = (id) =>
+  characters.find((character) => character.id === id) ?? characters[0];
+const getSignature = (character) =>
+  character.signature ?? `${character.name} Overdrive`;
 
 const defaultEntries = [
   'Arena uplink established. Crowd noise rolling through the ruined skyline.',
@@ -84,7 +88,7 @@ function BattleArena() {
 
   const handleSpecial = () => {
     if (playerEnergy < 35) {
-      pushLog(`${player.name} needs more charge before using ${player.signature}.`);
+      pushLog(`${player.name} needs more charge before using ${getSignature(player)}.`);
       return;
     }
 
@@ -92,7 +96,7 @@ function BattleArena() {
     const nextHealth = Math.max(0, opponentHealth - damage);
     setOpponentHealth(nextHealth);
     setPlayerEnergy((current) => Math.max(0, current - 35));
-    pushLog(`${player.name} triggers ${player.signature} for ${damage} damage.`);
+    pushLog(`${player.name} triggers ${getSignature(player)} for ${damage} damage.`);
     if (nextHealth > 0) {
       enemyResponse('special');
     }
@@ -257,7 +261,7 @@ function BattleArena() {
               <div className="mt-5 space-y-4">
                 <div className="rounded-2xl border border-white/8 bg-black/20 p-4">
                   <h3 className="font-display text-lg uppercase tracking-[0.16em]">
-                    {player.signature}
+                    {getSignature(player)}
                   </h3>
                   <p className="mt-2 text-sm text-slate-300/85">
                     Requires 35 energy. High-damage burst tuned to the selected combatant.
@@ -265,7 +269,7 @@ function BattleArena() {
                 </div>
                 <div className="rounded-2xl border border-white/8 bg-black/20 p-4">
                   <h3 className="font-display text-lg uppercase tracking-[0.16em]">
-                    {opponent.signature}
+                    {getSignature(opponent)}
                   </h3>
                   <p className="mt-2 text-sm text-slate-300/85">
                     The rival uses the same core rules, keeping the duel readable and fast.
