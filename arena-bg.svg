@@ -1,0 +1,65 @@
+<svg width="1600" height="1000" viewBox="0 0 1600 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1000" fill="#050714"/>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <ellipse cx="780" cy="170" rx="540" ry="220" fill="url(#stormGlow)" opacity="0.42"/>
+  <ellipse cx="820" cy="720" rx="320" ry="120" fill="url(#arenaGlow)" opacity="0.75"/>
+  <ellipse cx="820" cy="720" rx="220" ry="78" fill="url(#arenaGlowInner)" opacity="0.9"/>
+  <path d="M0 768L92 690L126 734L188 612L250 676L320 554L394 690L462 572L530 648L612 478L676 600L742 462L800 522L850 438L902 492L970 350L1036 500L1112 422L1190 620L1262 542L1326 676L1400 614L1468 724L1540 656L1600 734V1000H0V768Z" fill="#0B1220"/>
+  <path d="M0 816L120 734L174 776L240 686L318 744L388 640L456 730L538 586L596 676L656 582L712 660L792 540L866 620L934 554L1024 660L1100 586L1170 686L1250 614L1328 716L1402 652L1498 792L1600 728V1000H0V816Z" fill="#111C30"/>
+  <g opacity="0.9">
+    <path d="M768 560C722 594 686 650 676 718C732 764 864 764 956 712C942 644 904 590 852 560L810 516L768 560Z" fill="url(#coreMetal)"/>
+    <path d="M636 584C594 628 570 688 566 748C616 780 684 806 734 810C720 736 712 666 726 606L682 566L636 584Z" fill="#18283D"/>
+    <path d="M970 590C1016 636 1042 694 1046 752C994 786 930 804 882 806C898 734 910 666 894 606L930 566L970 590Z" fill="#18283D"/>
+  </g>
+  <g opacity="0.45" stroke="#8CE6FF" stroke-width="2">
+    <path d="M146 206L164 116"/>
+    <path d="M150 154L208 112"/>
+    <path d="M348 124L364 60"/>
+    <path d="M1260 168L1296 88"/>
+    <path d="M1370 134L1424 84"/>
+    <path d="M1188 250L1218 192"/>
+  </g>
+  <g opacity="0.58">
+    <circle cx="262" cy="286" r="2.5" fill="#FFA46A"/>
+    <circle cx="326" cy="238" r="1.8" fill="#7FE7FF"/>
+    <circle cx="580" cy="194" r="2" fill="#7FE7FF"/>
+    <circle cx="902" cy="228" r="2" fill="#FFA46A"/>
+    <circle cx="1122" cy="310" r="2.6" fill="#7FE7FF"/>
+    <circle cx="1340" cy="248" r="2.4" fill="#FFA46A"/>
+    <circle cx="420" cy="842" r="2.4" fill="#FFA46A"/>
+    <circle cx="1180" cy="836" r="2.2" fill="#7FE7FF"/>
+    <circle cx="958" cy="896" r="1.8" fill="#FFA46A"/>
+  </g>
+  <rect width="1600" height="1000" fill="url(#vignette)"/>
+  <defs>
+    <linearGradient id="sky" x1="800" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C1630"/>
+      <stop offset="0.48" stop-color="#08101F"/>
+      <stop offset="1" stop-color="#040711"/>
+    </linearGradient>
+    <radialGradient id="stormGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(780 170) rotate(90) scale(220 540)">
+      <stop stop-color="#B7EFFF" stop-opacity="0.78"/>
+      <stop offset="0.5" stop-color="#4FB1D6" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#050714" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="arenaGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 720) rotate(90) scale(120 320)">
+      <stop stop-color="#7FE7FF"/>
+      <stop offset="0.5" stop-color="#32A7E4" stop-opacity="0.56"/>
+      <stop offset="1" stop-color="#32A7E4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="arenaGlowInner" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(820 720) rotate(90) scale(78 220)">
+      <stop stop-color="#FFF4D4"/>
+      <stop offset="0.45" stop-color="#FFA46A" stop-opacity="0.76"/>
+      <stop offset="1" stop-color="#FFA46A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="coreMetal" x1="816" y1="516" x2="816" y2="764" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7289A3"/>
+      <stop offset="0.4" stop-color="#394B63"/>
+      <stop offset="1" stop-color="#18273A"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(800 500) rotate(90) scale(620 930)">
+      <stop offset="0.62" stop-color="#050714" stop-opacity="0"/>
+      <stop offset="1" stop-color="#02040B" stop-opacity="0.92"/>
+    </radialGradient>
+  </defs>
+</svg>
