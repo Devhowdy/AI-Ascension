@@ -1,6 +1,6 @@
 # AI Battle Arena
 
-Dark cinematic frontend prototype for the AI Battle Arena sprint.
+Cinematic frontend-only React/Vite prototype for an original AI battle game.
 
 ## Stack
 
@@ -10,11 +10,11 @@ Dark cinematic frontend prototype for the AI Battle Arena sprint.
 - React Router
 - Local state only
 
-## Routes
+## Pages
 
-- `/` Home
-- `/#/select` Character Select
-- `/#/arena` Battle Arena
+- Home
+- Character Select
+- Battle Arena
 
 ## Local Development
 
@@ -23,7 +23,8 @@ npm install
 npm run dev
 ```
 
-## Deployment
+## Production Build
 
-This repository includes a GitHub Pages workflow in `.github/workflows/deploy.yml`.
-Pushes to `main` build the app and publish the latest version automatically.
+```bash
+npm run build
+```

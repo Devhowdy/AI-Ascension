@@ -1,79 +1,67 @@
-import { motion } from 'framer-motion';
-import StatBar from './StatBar';
+import { motion } from "framer-motion";
 
 function CharacterCard({
   character,
   selected,
-  onSelect,
-  mode = 'select',
-  compact = false,
+  disabled,
+  roleLabel,
+  onClick,
 }) {
   return (
     <motion.button
       type="button"
-      whileHover={{ y: -6, scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      disabled={!onSelect}
-      onClick={() => onSelect?.(character.id)}
-      className={`group relative overflow-hidden rounded-[30px] border p-6 text-left transition ${
+      onClick={onClick}
+      disabled={disabled}
+      whileHover={disabled ? undefined : { y: -6, scale: 1.01 }}
+      whileTap={disabled ? undefined : { scale: 0.99 }}
+      className={`group relative overflow-hidden rounded-2xl border px-5 pb-5 pt-4 text-left transition duration-300 ${
         selected
-          ? 'border-cyan-300/70 bg-white/10 shadow-glow'
-          : 'border-white/10 bg-white/[0.04]'
-      } ${onSelect ? '' : 'cursor-default'}`}
+          ? "border-white/40 bg-white/10 shadow-arena"
+          : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/8"
+      } ${disabled ? "cursor-not-allowed opacity-45" : ""}`}
     >
       <div
-        className="absolute inset-0 opacity-60"
-        style={{
-          background: `radial-gradient(circle at top, ${character.aura}, transparent 58%)`,
-        }}
+        className={`absolute inset-x-6 top-4 h-40 rounded-[1.5rem] bg-gradient-to-br ${character.portraitClass} opacity-80 blur-[2px]`}
       />
-      <div className="relative space-y-5">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-cyan-200/70">
-              {mode === 'select' ? 'Arena Candidate' : 'Combatant'}
-            </p>
-            <h3 className="mt-3 font-display text-2xl uppercase tracking-[0.12em] text-white">
-              {character.name}
-            </h3>
-            <p className="mt-2 text-sm uppercase tracking-[0.28em] text-slate-400">
-              {character.title}
-            </p>
-          </div>
-          <div
-            className={`h-20 w-16 rounded-full bg-gradient-to-b ${character.accent} opacity-90 blur-[1px]`}
-          />
+      <div className="relative">
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-xs uppercase tracking-[0.35em] text-white/50">
+            {roleLabel}
+          </span>
+          <span
+            className="rounded-full border border-white/15 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70"
+            style={{ boxShadow: `0 0 24px ${character.glow}` }}
+          >
+            {character.title}
+          </span>
         </div>
-
-        <p className="max-w-sm text-base leading-6 text-slate-200/88">
-          {character.description}
+        <div className="relative mb-5 h-44 overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/60">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_40%),linear-gradient(180deg,rgba(255,255,255,0.05),transparent_50%)]" />
+          <div
+            className={`absolute inset-0 bg-gradient-to-b ${character.portraitClass} opacity-60`}
+          />
+          <div className="character-silhouette absolute inset-x-[20%] bottom-0 h-[84%]" />
+          <div className="absolute inset-x-8 bottom-3 h-4 rounded-full bg-white/20 blur-xl" />
+        </div>
+        <h3 className="font-display text-2xl uppercase tracking-[0.18em] text-white">
+          {character.name}
+        </h3>
+        <p className="mt-2 text-base leading-6 text-white/70">
+          {character.tagline}
         </p>
-
-        {!compact && (
-          <div className="space-y-3">
-            <StatBar label="Power" value={character.stats.power} />
-            <StatBar label="Defense" value={character.stats.defense} tone="amber" />
-            <StatBar label="Speed" value={character.stats.speed} />
-            <StatBar label="Focus" value={character.stats.focus} tone="amber" />
-          </div>
-        )}
-
-        <div className="flex flex-wrap gap-2">
-          {character.loadout.map((item) => (
-            <span
-              key={item}
-              className="rounded-full border border-white/10 px-3 py-1 text-xs uppercase tracking-[0.25em] text-slate-300"
+        <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+          {Object.entries(character.coreStats).map(([label, value]) => (
+            <div
+              key={label}
+              className="rounded-xl border border-white/10 bg-black/25 px-2 py-3"
             >
-              {item}
-            </span>
+              <div className="text-xs uppercase tracking-[0.24em] text-white/45">
+                {label}
+              </div>
+              <div className="mt-2 font-display text-xl text-white">{value}</div>
+            </div>
           ))}
         </div>
-
-        {selected && (
-          <div className="text-xs uppercase tracking-[0.4em] text-cyan-200">
-            Locked In
-          </div>
-        )}
       </div>
     </motion.button>
   );

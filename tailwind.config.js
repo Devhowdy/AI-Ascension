@@ -1,26 +1,25 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
+  content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
-      colors: {
-        abyss: '#060816',
-        steel: '#0f1727',
-        ember: '#ff8b4d',
-        plasma: '#6ae6ff',
-        pulse: '#89f7d8',
-      },
       fontFamily: {
-        display: ['Orbitron', 'system-ui', 'sans-serif'],
-        body: ['Rajdhani', 'system-ui', 'sans-serif'],
+        display: ["Orbitron", "sans-serif"],
+        body: ["Rajdhani", "sans-serif"],
+      },
+      colors: {
+        ember: "#ff7a2f",
+        flare: "#ffd166",
+        plasma: "#78f3ff",
+        void: "#05070d",
+        steel: "#9eb4d1",
       },
       boxShadow: {
-        glow: '0 0 40px rgba(106, 230, 255, 0.2)',
-        ember: '0 0 30px rgba(255, 139, 77, 0.25)',
+        arena: "0 0 0 1px rgba(120,243,255,0.18), 0 28px 80px rgba(5,7,13,0.7)",
       },
       backgroundImage: {
-        arenaGrid:
-          'radial-gradient(circle at center, rgba(106,230,255,0.16), transparent 40%), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+        "grid-fade":
+          "linear-gradient(rgba(120,243,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(120,243,255,0.08) 1px, transparent 1px)",
       },
     },
   },

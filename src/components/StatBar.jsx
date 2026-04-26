@@ -1,19 +1,16 @@
-function StatBar({ label, value, tone = 'cyan' }) {
-  const toneClass =
-    tone === 'amber'
-      ? 'from-amber-300 via-orange-400 to-red-400'
-      : 'from-cyan-300 via-sky-400 to-teal-300';
+function StatBar({ label, value, max, colorClass, valueLabel }) {
+  const width = `${Math.max(0, Math.min(100, (value / max) * 100))}%`;
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between text-sm uppercase tracking-[0.28em] text-slate-300">
+      <div className="flex items-center justify-between text-xs uppercase tracking-[0.28em] text-white/55">
         <span>{label}</span>
-        <span>{value}</span>
+        <span>{valueLabel ?? `${Math.round(value)}/${max}`}</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/10">
+      <div className="h-3 overflow-hidden rounded-full bg-white/8">
         <div
-          className={`h-full rounded-full bg-gradient-to-r ${toneClass}`}
-          style={{ width: `${value}%` }}
+          className={`h-full rounded-full ${colorClass} transition-[width] duration-500`}
+          style={{ width }}
         />
       </div>
     </div>

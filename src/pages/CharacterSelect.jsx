@@ -1,145 +1,124 @@
-import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import CharacterCard from '../components/CharacterCard';
-import { characters, getCharacterById } from '../data/characters';
+import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import CharacterCard from "../components/CharacterCard";
 
-function CharacterSelect() {
+function CharacterSelect({ characters, selection, onSelectionChange }) {
   const navigate = useNavigate();
-  const [selectedId, setSelectedId] = useState('grok-titan');
-  const [opponentId, setOpponentId] = useState('claude-wraith');
 
-  const selectedCharacter = useMemo(() => getCharacterById(selectedId), [selectedId]);
-  const rivalOptions = characters.filter((character) => character.id !== selectedId);
-  const opponent = getCharacterById(
-    rivalOptions.some((character) => character.id === opponentId)
-      ? opponentId
-      : rivalOptions[0].id,
-  );
+  const handlePlayerSelect = (playerId) => {
+    const opponentId =
+      selection.opponentId === playerId
+        ? characters.find((fighter) => fighter.id !== playerId)?.id ?? playerId
+        : selection.opponentId;
 
-  const handlePlayerSelect = (nextId) => {
-    setSelectedId(nextId);
-    if (nextId === opponentId) {
-      const fallback = characters.find((character) => character.id !== nextId);
-      if (fallback) {
-        setOpponentId(fallback.id);
-      }
-    }
+    onSelectionChange({ playerId, opponentId });
   };
 
-  const handleLaunch = () => {
-    localStorage.setItem('ai-battle-arena-player', selectedCharacter.id);
-    localStorage.setItem('ai-battle-arena-opponent', opponent.id);
-    navigate('/arena');
+  const handleOpponentSelect = (opponentId) => {
+    const playerId =
+      selection.playerId === opponentId
+        ? characters.find((fighter) => fighter.id !== opponentId)?.id ?? opponentId
+        : selection.playerId;
+
+    onSelectionChange({ playerId, opponentId });
   };
 
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,#050714_0%,#08101f_55%,#050714_100%)] px-6 py-8 text-white sm:px-8 lg:px-12">
+    <main className="arena-shell min-h-screen px-6 py-8 lg:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-col gap-5 border-b border-white/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="text-sm uppercase tracking-[0.42em] text-cyan-200/75">
-              Character Select
+            <p className="text-sm uppercase tracking-[0.45em] text-cyan-100/65">
+              Loadout Selection
             </p>
-            <h1 className="mt-4 font-display text-4xl uppercase tracking-[0.12em] sm:text-5xl">
-              Choose the Arena Pairing
+            <h1 className="mt-4 font-display text-[clamp(2.6rem,7vw,5.6rem)] uppercase leading-[0.9] tracking-[0.12em] text-white">
+              Choose the duel
             </h1>
+            <p className="mt-4 max-w-2xl text-lg leading-7 text-white/68">
+              Lock in a player champion and a rival combat shell before entering
+              the arena.
+            </p>
           </div>
-          <Link
-            to="/"
-            className="rounded-full border border-white/15 px-5 py-3 text-sm uppercase tracking-[0.3em] text-slate-200 transition hover:border-cyan-200/60 hover:bg-white/5"
-          >
-            Return Home
-          </Link>
+          <div className="flex gap-3">
+            <Link
+              to="/"
+              className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm uppercase tracking-[0.28em] text-white/70 transition hover:text-white"
+            >
+              Home
+            </Link>
+            <button
+              type="button"
+              onClick={() => navigate("/arena")}
+              className="rounded-full border border-cyan-200/30 bg-cyan-200/12 px-5 py-3 font-display text-sm uppercase tracking-[0.3em] text-white transition hover:border-cyan-100/55 hover:bg-cyan-200/18"
+            >
+              Launch Battle
+            </button>
+          </div>
         </div>
 
-        <section className="mt-10 grid gap-10 lg:grid-cols-[1.25fr_0.75fr]">
-          <div className="space-y-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                Select your primary warrior
-              </p>
-              <div className="mt-5 grid gap-5 xl:grid-cols-3">
-                {characters.map((character) => (
-                  <CharacterCard
-                    key={character.id}
-                    character={character}
-                    selected={character.id === selectedId}
-                    onSelect={handlePlayerSelect}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-xs uppercase tracking-[0.4em] text-slate-400">
-                Assign an opponent
-              </p>
-              <div className="mt-5 grid gap-5 md:grid-cols-2">
-                {rivalOptions.map((character) => (
-                  <CharacterCard
-                    key={character.id}
-                    character={character}
-                    selected={character.id === opponent.id}
-                    onSelect={setOpponentId}
-                    compact
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <motion.aside
-            initial={{ opacity: 0, x: 18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="h-fit rounded-[32px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-md"
-          >
-            <p className="text-xs uppercase tracking-[0.4em] text-cyan-200/70">
-              Match Preview
-            </p>
-            <div className="mt-6 space-y-5">
-              <div className="rounded-[28px] border border-cyan-300/18 bg-cyan-300/8 p-5">
-                <p className="text-xs uppercase tracking-[0.35em] text-cyan-100/70">
+        <div className="mt-10 grid gap-12">
+          <section>
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/45">
                   Player Unit
                 </p>
-                <h2 className="mt-3 font-display text-2xl uppercase tracking-[0.12em]">
-                  {selectedCharacter.name}
+                <h2 className="mt-2 font-display text-2xl uppercase tracking-[0.16em] text-white">
+                  Select your warrior
                 </h2>
-                <p className="mt-3 text-slate-200/80">{selectedCharacter.description}</p>
               </div>
+            </div>
+            <div className="grid gap-5 lg:grid-cols-3">
+              {characters.map((character, index) => (
+                <motion.div
+                  key={character.id}
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, delay: index * 0.08 }}
+                >
+                  <CharacterCard
+                    character={character}
+                    selected={selection.playerId === character.id}
+                    disabled={selection.opponentId === character.id}
+                    roleLabel="Pilot"
+                    onClick={() => handlePlayerSelect(character.id)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </section>
 
-              <div className="rounded-[28px] border border-orange-300/18 bg-orange-300/8 p-5">
-                <p className="text-xs uppercase tracking-[0.35em] text-orange-100/70">
+          <section>
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.35em] text-white/45">
                   Rival Unit
                 </p>
-                <h2 className="mt-3 font-display text-2xl uppercase tracking-[0.12em]">
-                  {opponent.name}
+                <h2 className="mt-2 font-display text-2xl uppercase tracking-[0.16em] text-white">
+                  Select the opponent
                 </h2>
-                <p className="mt-3 text-slate-200/80">{opponent.description}</p>
               </div>
-
-              <div className="rounded-[28px] border border-white/10 bg-black/25 p-5">
-                <p className="text-xs uppercase tracking-[0.35em] text-slate-400">
-                  Arena Conditions
-                </p>
-                <ul className="mt-4 space-y-3 text-sm uppercase tracking-[0.28em] text-slate-200/80">
-                  <li>Storm field active</li>
-                  <li>Glowing center ring charged</li>
-                  <li>Ruined skyline visibility low</li>
-                </ul>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleLaunch}
-                className="w-full rounded-full bg-white px-6 py-4 font-display text-sm uppercase tracking-[0.32em] text-slate-950 transition hover:scale-[1.01]"
-              >
-                Launch Battle
-              </button>
             </div>
-          </motion.aside>
-        </section>
+            <div className="grid gap-5 lg:grid-cols-3">
+              {characters.map((character, index) => (
+                <motion.div
+                  key={character.id}
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, delay: index * 0.08 + 0.12 }}
+                >
+                  <CharacterCard
+                    character={character}
+                    selected={selection.opponentId === character.id}
+                    disabled={selection.playerId === character.id}
+                    roleLabel="Rival"
+                    onClick={() => handleOpponentSelect(character.id)}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     </main>
   );
